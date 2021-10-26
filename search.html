@@ -1,0 +1,102 @@
+<html>
+    <body>
+		<h1>SIMPLE BLOCKCHAIN IMPLEMENTATION OF PATIENT RECORDS </h1>
+        <div>
+			
+
+			<h3>ENTER PATIENT ID/ADDRESS</h3>
+            <input type ="text" id="pat_ID">
+			<p id='patient_name'></p>
+			<p id='patient_address'></p>
+            <button id='submit'>Submit</button>
+			
+                
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.36/dist/web3.min.js" integrity="sha256-nWBTbvxhJgjslRyuAKJHK+XcZPlCnmIAAMixz6EefVk=" crossorigin="anonymous"></script>
+        <script>
+            var contract;
+              
+			$(document).ready(function()
+             {
+                 web3=new Web3(web3.currentProvider);
+               //  var address="0x4B93d955AfE361878BCaaf43fA9821935Edb602A";
+				 var address="0xef8C2238B00B3ECc90D7a879C36d1fa108C2e7be";
+                 var abi=[
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"name": "addr",
+				"type": "string"
+			}
+		],
+		"name": "set_patient_info",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "no",
+				"type": "int256"
+			}
+		],
+		"name": "get_patient_info",
+		"outputs": [
+			{
+				"name": "",
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	}
+];
+	
+                 contract= new web3.eth.Contract(abi,address);
+				 $('#submit').click(function()
+                 {  
+					  // patient name
+					var address="0xef8C2238B00B3ECc90D7a879C36d1fa108C2e7be";
+				
+					var id=parseInt($('#pat_ID').val());
+					contract= new web3.eth.Contract(abi,address);
+					//var id=1;
+					// var name= $('#pat_name').val();
+					// var age= parseInt($('#pat_age').val());
+				   //var ans=contract.methods.get_patient_info(id).call();
+				   //console.log(ans);
+
+				contract.methods.get_patient_info(id).call().then(function(nam)
+                 {
+                     $('#patient_name').html(nam[0]);
+					 $('#patient_address').html(nam[1]);
+                 })
+
+
+
+					})
+                 
+                })
+
+				
+					
+                    
+
+            </script>
+    </body>
+</html>
+
