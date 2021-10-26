@@ -2,16 +2,17 @@
     <body>
 		<h1>SIMPLE BLOCKCHAIN IMPLEMENTATION OF PATIENT RECORDS </h1>
         <div>
+			
+           
 			<h3>Patient Name</h3>
             <input type ="text" id="pat_name">
-			<h3>Patient Age</h3>
-			<input type ="text" id="pat_age">
 			<h3>Patient Address</h3>
 			<input type ="text" id="pat_addr">
             <p id='patient_name'></p>
-			<p id='patient_age'></p>
 			<p id='patient_addr'></p>
             <button id='submit'>Submit</button>
+
+			<a href="search.html">SEARCH PATIENT</a>.
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.36/dist/web3.min.js" integrity="sha256-nWBTbvxhJgjslRyuAKJHK+XcZPlCnmIAAMixz6EefVk=" crossorigin="anonymous"></script>
@@ -20,60 +21,21 @@
             $(document).ready(function()
              {
                  web3=new Web3(web3.currentProvider);
-               //  var address="0x4B93d955AfE361878BCaaf43fA9821935Edb602A";
-				 var address="0xE8ceADc33BB5DB0B026025a36B0239841A76E24a";
-                 var abi= [
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "getName",
-		"outputs": [
-			{
-				"name": "",
-				"type": "string"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "getAddress",
-		"outputs": [
-			{
-				"name": "",
-				"type": "string"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
+				 var address="0xef8C2238B00B3ECc90D7a879C36d1fa108C2e7be";
+                 var abi=[
 	{
 		"constant": false,
 		"inputs": [
 			{
 				"name": "name",
 				"type": "string"
-			}
-		],
-		"name": "set_Name",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
+			},
 			{
-				"name": "age",
-				"type": "int256"
+				"name": "addr",
+				"type": "string"
 			}
 		],
-		"name": "set_Age",
+		"name": "set_patient_info",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -81,65 +43,45 @@
 	},
 	{
 		"constant": true,
-		"inputs": [],
-		"name": "getAge",
+		"inputs": [
+			{
+				"name": "no",
+				"type": "int256"
+			}
+		],
+		"name": "get_patient_info",
 		"outputs": [
 			{
 				"name": "",
-				"type": "int256"
+				"type": "string"
+			},
+			{
+				"name": "",
+				"type": "string"
 			}
 		],
 		"payable": false,
 		"stateMutability": "view",
 		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "addr",
-				"type": "string"
-			}
-		],
-		"name": "set_Address",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "constructor"
 	}
 ];
 	
                  contract= new web3.eth.Contract(abi,address);
-                 contract.methods.getName().call().then(function(nam)
-                 {
-                     $('#patient_name').html(nam);
-                 })
-            
-                contract.methods.getAge().call().then(function(nam)
-                 {
-                     $('#patient_age').html(nam);
-                 })
-                
-				contract.methods.getAddress().call().then(function(nam)
-                 {
-                     $('#patient_addr').html(nam);
-                 })
+                 
                 })
 
-                 $('#submit').click(function()
+               $('#submit').click(function()
                  {  
 					  // patient name
+					var address="0xef8C2238B00B3ECc90D7a879C36d1fa108C2e7be";
+					 //var id=parseInt($('#pat_id').val());
 					 var name= $('#pat_name').val();
+					// var age= parseInt($('#pat_age').val());
+					 var addr=$('#pat_addr').val();
                      web3.eth.getAccounts().then(function(accounts)
                      {   
                          var acc= accounts[0];
-                         return contract.methods.set_Name(name).send({from: acc});
+                         return contract.methods.set_patient_info(name,addr).send({from: acc});
 
                      }).then(function(tx)
                      {
@@ -149,41 +91,16 @@
                      {
                          console.log(tx);
                      })
-                    //patient age
-					var age= parseInt($('#pat_age').val());
-					 web3.eth.getAccounts().then(function(accounts)
-                     {   
-                         var acc= accounts[0];
-                         return contract.methods.set_Age(age).send({from: acc});
-
-                     }).then(function(tx)
-                     {
-                         console.log(tx);
-
-                     }).catch(function(tx)
-                     {
-                         console.log(tx);
-                     })
-
-					//patient address
-					var addr= $('#pat_addr').val();
-					web3.eth.getAccounts().then(function(accounts)
-                     {   
-                         var acc= accounts[0];
-                         return contract.methods.set_Address(addr).send({from: acc});
-
-                     }).then(function(tx)
-                     {
-                         console.log(tx);
-
-                     }).catch(function(tx)
-                     {
-                         console.log(tx);
-                     })
+                    
                  })
+          //  var contract;
+            
+
+                 
 
             
 
             </script>
     </body>
 </html>
+
