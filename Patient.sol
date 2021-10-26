@@ -1,37 +1,30 @@
 pragma solidity 0.4.25;
 
+
 contract Patient//not same as file name needed
-{
+{  
+    int pid=0;
+   
+ struct Details
+ { 
+    int _pid;
     string pat_name;
     string pat_addr;
-    int pat_age;
-    constructor() public 
-    {
-        pat_name= "Rishita";
-    }
-    function getName() view public returns(string)
-    {
-        return pat_name;
-    }
-    function getAge() view public returns(int)
-    {
-        return pat_age;
-    }
-    function getAddress() view public returns(string)
-    {
-        return pat_addr;
-    }
-    function set_Name(string name) public
-    {
-       pat_name=name;// name=nam;
-    }
-    function set_Age(int  age) public
-    {
-        pat_age=age;
-    }
-    function set_Address(string  addr) public
-    {
-        pat_addr=addr;
+    
+ }
+ mapping(int=>Details) p;
+ function set_patient_info(string memory name,string memory addr) public
+ {   
+      
+       pid+=1;
+       p[pid]=Details(pid,name,addr);
+}
+    
+function get_patient_info(int no) public view returns (string memory ,string memory) {
+    
+    Details storage pati=p[no];
+    return (pati.pat_name,pati.pat_addr);
+    
     }
     
 }
