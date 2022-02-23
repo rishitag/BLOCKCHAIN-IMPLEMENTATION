@@ -8,11 +8,21 @@
             <input type ="text" id="pat_name">
 			<h3>Patient Address</h3>
 			<input type ="text" id="pat_addr">
+			<h3>Enter systolic value</h3>
+			<input type ="text" id="pat_pulse">
+			<h3>Enter diastolic value</h3>
+			<input type ="text" id="pat_pulse1">
             <p id='patient_name'></p>
 			<p id='patient_addr'></p>
-            <button id='submit'>Submit</button>
+			
+			<input type="file" name="photo" id="photo">
+			<br>
+				  
+            <button id='submit'>Submit</button><br>
 
-			<a href="search.html">SEARCH PATIENT</a>.
+			<a href="search.html">SEARCH PATIENT</a><br>
+
+			
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.36/dist/web3.min.js" integrity="sha256-nWBTbvxhJgjslRyuAKJHK+XcZPlCnmIAAMixz6EefVk=" crossorigin="anonymous"></script>
@@ -21,7 +31,7 @@
             $(document).ready(function()
              {
                  web3=new Web3(web3.currentProvider);
-				 var address="0xef8C2238B00B3ECc90D7a879C36d1fa108C2e7be";
+				 var address="0xda8384D7E535EDD7B48AE7Be667D452C1EC9f8F8";
                  var abi=[
 	{
 		"constant": false,
@@ -73,7 +83,8 @@
                $('#submit').click(function()
                  {  
 					  // patient name
-					var address="0xef8C2238B00B3ECc90D7a879C36d1fa108C2e7be";
+					
+					var address="0xda8384D7E535EDD7B48AE7Be667D452C1EC9f8F8";
 					 //var id=parseInt($('#pat_id').val());
 					 var name= $('#pat_name').val();
 					// var age= parseInt($('#pat_age').val());
@@ -91,6 +102,7 @@
                      {
                          console.log(tx);
                      })
+					 
                     
                  })
           //  var contract;
@@ -103,4 +115,3 @@
             </script>
     </body>
 </html>
-
